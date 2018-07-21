@@ -1,0 +1,27 @@
+{% extends 'layout.twig' %}
+{% block content %}
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-12">
+				<form>
+					<div class="card">
+						<div class="card-header text-center">
+							<h3>Event Info</h3>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+						    <label for="eventName"><h5>Event Name</h5></label>
+						    <input type="text" class="form-control" id="eventName" placeholder="Event Name">
+						  </div>
+							<div class="form-group">
+						    <label for="Description"><h5>Description</h5></label>
+						    <textarea placeholder="Write all the important imformation for this event." class="form-control" id="Description" rows="3"></textarea>
+						  </div>
+						  <input type="submit" value="Create" class="btn btn-outline-info btn-lg btn-block rounded-0">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

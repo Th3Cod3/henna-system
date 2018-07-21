@@ -1,0 +1,19 @@
+{
+    "name": "th3-c/henna-system",
+    "description": "This program is to manage Events in a Foundation",
+    "authors": [
+        {
+            "name": "Th3-Cod3",
+            "email": "th3-cod3-1230@hotmail.com"
+        }
+    ],
+    "autoload":{
+	    "psr-4":{
+            "App\\": "app/"
+        }	
+	},
+    "require": {
+        "phroute/phroute": "^2.1",
+        "twig/twig": "^2.5"
+    }
+}
