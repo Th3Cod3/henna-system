@@ -13,7 +13,12 @@ class EventsController extends TwigController
 
 	public function getNew()
 	{
-		return $this->render('new-event.twig');
+		return $this->render('new-event.twig', ['button' => 'Create']);
+	}
+
+	public function getEdit($id = [])
+	{
+		return $this->render('new-event.twig', ['button' => 'Save']);
 	}
 	
 }
