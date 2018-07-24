@@ -1,0 +1,67 @@
+{% extends 'layout.twig' %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row my-2">
+		{# Assitance #}
+		<div class="col-12">
+			<div class="card bg-light mt-3">
+				<div class="card-header">
+					<h4 class="card-title">Add | Budget</h4>
+				</div>
+				<div class="card-body">
+					<form>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label for="companyName">Company name</label>
+								<input type="text" class="form-control rounded-0" id="companyName" placeholder="Company name" required>
+								<a href="{{ 'companies/add' | url }}" class="btn btn-info rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Company</a>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="eventName">Event</label>
+								<input type="text" class="form-control" id="eventName" placeholder="Event" readonly>
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="quote">Quote No.</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="quote" placeholder="Quote No.">
+								</div>
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="quoteDate">Quote Date</label>
+								<input type="date" class="form-control" id="quoteDate" placeholder="Quote Date">
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="file">File</label>
+								<div class="input-group">
+									<input type="file" class="custom-file-input" id="file">
+									<label class="custom-file-label" for="file">Upload Scan</label>
+								</div>
+							</div>
+						</div>
+						<hr class="d-none d-md-block">
+						<div></div>
+						<div class="table">
+							<div class="d-none d-md-block">
+							  <div class="row">
+							    <div scope="col" class="col-6">Product</div>
+							    <div scope="col" class="col-3">Price</div>
+							    <div scope="col" class="col-3">Amount</div>
+							  </div>
+							</div>
+							<hr>
+						  <div class="row">
+						    <div class="col-md-6">
+									<input type="text" class="form-control my-2 col-sm-12" id="companyName" placeholder="Product">
+								</div>
+						    <div class="col-md-3 my-2 col-sm-12"><input type="text" class="form-control" id="companyName" placeholder="Price"></div>
+						    <div class="col-md-3 my-2 col-sm-12"><input type="text" class="form-control" id="companyName" placeholder="Amount"></div>
+						  </div>
+						</div>
+						<button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Budget</a>
+					</form>		
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

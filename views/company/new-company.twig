@@ -1,0 +1,48 @@
+{% extends 'layout.twig' %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row my-2">
+		{# Assitance #}
+		<div class="col-12">
+			<div class="card bg-light mt-3">
+				<div class="card-header">
+					<h4 class="card-title">Add Company</h4>
+				</div>
+				<div class="card-body">
+					<form method="POST">
+            <div class="form-row">
+              <div class="col-md-8 mb-3">
+                <label for="companyName">Company name</label>
+                <input type="text" class="form-control" id="companyName" placeholder="Company name" name="companyName" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="address">Address</label>
+                <input type="text" name="address" class="form-control" id="address" placeholder="Company Address">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="phone">Phone</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" name="phone" id="phone" placeholder="Phone Number">
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="Kvk">KvK no.</label>
+                <input type="text" class="form-control" name="kvk" id="Kvk" placeholder="KvK no.">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="contactPerson">Contact Person</label>
+                <input type="text" name="contactPerson" class="form-control" id="contactPerson" placeholder="Contact Person">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="email">E-Mail</label>
+                <input type="mail" name="email" class="form-control" id="email" placeholder="E-Mail">
+              </div>
+            </div>
+					 <button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Save</a>
+          </form>		
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

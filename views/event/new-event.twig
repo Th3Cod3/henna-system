@@ -1,0 +1,44 @@
+{% extends 'layout.twig' %}
+{% block content %}
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-12">
+				<form method="post" action="#">
+					<div class="card">
+						<div class="card-header text-center">
+							<h3>Event Info</h3>
+							<div class="card-body text-left">
+								<div class="row">
+									<div class="col-lg-9 col-md-12">
+										<div class="form-group">
+									    <label for="eventName"><h5>Event Name</h5></label>
+									    <input type="text" class="form-control" id="eventName" value="{{ data['0'].name }}" name="eventName" placeholder="Event Name" required>
+									  </div>
+									</div>
+									<div class="col-lg-3 col-md-12">
+										<div class="form-group">
+									    <label for="eventName"><h5>Event Date</h5></label>
+									    <input type="date" class="form-control" id="eventDate" value="{{ data['0'].event_date }}" name="eventDate" placeholder="mm/dd/yyyy" required>
+									  </div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+									    <label for="place"><h5>Place</h5></label>
+									    <input type="text" class="form-control" id="place" value="{{ data['0'].place }}" name="place" placeholder="Place" required>
+									  </div>
+										<div class="form-group">
+									    <label for="Description"><h5>Description</h5></label>
+									    <textarea placeholder="Write all the important imformation for this event." class="form-control" name="description" id="Description" rows="3">{{ data['0'].description }}</textarea>
+									  </div>
+									  <input type="hidden" name="id" value="{{data['0'].id}}">
+									  <input type="submit" value="{{ button }}" class="btn btn-outline-info btn-lg btn-block rounded-0">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

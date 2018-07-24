@@ -1,0 +1,40 @@
+{% extends 'layout.twig' %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row my-2">
+		<div class="col-lg-6 col-md-12">
+			<div class="card bg-light mt-3">
+				<div class="card-body">
+					<span class="card-title h2">{{ data['0'].name | upper }} </span><span>{{ data['0'].event_date | date("l, j F Y") }}</span>
+					<hr>
+					<span class="h4">Description: </span><p class="card-text">{{ data['0'].description }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-12">
+			<div class="card bg-light mt-3">
+				<div class="card-body">
+					<h3>BUDGET</h3>
+					<a href="{{ 'events/addbudget/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg"></i> Add Budget</a>
+					<hr>
+					<h3>COST</h3>
+					<a href="{{ 'events/addcost/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg"></i> Add Cost</a>
+				</div>
+			</div>
+		</div>
+
+		{# Assitance #}
+		<div class="col-12">
+			<div class="card bg-light mt-3">
+				<div class="card-header">
+					<h4 class="card-title">Assistance</h4>
+				</div>
+				<a href="{{ 'events/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Person</a>
+				<div class="card-body">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'layout.twig' %}
 {% block content %}
 <!-- EVENTS -->
+{% if activeEvent %}
 <div class="card mt-5">
 	<div class="card-header">
 		<h3>Active Events</h3>
@@ -15,25 +16,37 @@
 					<th scope="col">Place</th>
 					<th scope="col">Date</th>
 					<th scope="col">Encharge</th>
-					<th scope="col">Edit</th>
-					<th scope="col">Manage</th>
+					<th scope="col" class="text-right">Options</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>First Event</td>
-					<td>Korvetstraat 20</td>
-					<td>25 july 2018</td>
-					<td><img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success" width="30" height="30" alt="profile img"></td>
-					<td><a href="{{ 'events/edit' | url }}"><i class="far fa-edit fa-lg"></i></a></td>
-					<td><a href="{{ 'events/manage' | url }}"><i class="fas fa-cogs fa-lg"></i></a></td>
-				</tr>
+				{% for event in activeEvent %}
+					<tr>
+						<td>{{ event.id }}</td>
+						<td>{{ event.name }}</td>
+						<td>{{ event.place }}</td>
+						<td>{{ event.event_date }}</td>
+						<td><img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success" width="30" height="30" alt="profile img"> Yefri Gonzalez</td>
+						<td class="text-right"><a href="{{ 'events/edit/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg"></i></a> | 
+						<a href="{{ 'events/manage/' | url }}{{ event.id }}"><i class="fas fa-cogs fa-lg"></i></a> | <a href="{{ 'events/delete/' | url }}{{ event.id }}"><i class="fas fa-trash-alt"></i></a> </td>
+					</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
 </div>
+{% else %}
+	<div class="mt-5 text-center">
+		<a href="{{ 'events/new' | url }}" class="my-5">
+			<i class="fas fa-plus-circle fa-5x"></i>
+			<div class="h4 my-4">
+				Create New Event
+			</div>
+		</a>
+	</div>
+{% endif %}
 
+{% if oldEvents %}
 <!-- OLD EVENTS -->
 <div class="card mt-5">
 	<div class="card-header">
@@ -66,4 +79,5 @@
 		</table>
 	</div>
 </div>
+{% endif %}
 {% endblock %}
