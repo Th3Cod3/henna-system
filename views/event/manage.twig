@@ -14,11 +14,25 @@
 		<div class="col-lg-6 col-md-12">
 			<div class="card bg-light mt-3">
 				<div class="card-body">
-					<h3>BUDGET</h3>
-					<a href="{{ 'events/addbudget/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg"></i> Add Budget</a>
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<h3>BUDGET</h3>
+							<a href="{{ 'events/addbudget/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg my-2"></i> Add Budget</a>
+							<a href="{{ 'events/budgets/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Budgets</a>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<p class=" display-3 text-md-right text-center">98,00</p>
+						</div>
 					<hr>
-					<h3>COST</h3>
-					<a href="{{ 'events/addcost/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg"></i> Add Cost</a>
+						<div class="col-md-6 col-sm-12">
+							<h3>COST</h3>
+							<a href="{{ 'events/addcost/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg my-2"></i> Add Cost</a>
+							<a href="{{ 'events/costs/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Costs</a>
+						</div>
+						<div class="col-md-6 col-sm-12">
+							<p class=" display-3 text-md-right text-center">98,00</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

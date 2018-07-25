@@ -27,8 +27,10 @@
 						<td>{{ event.place }}</td>
 						<td>{{ event.event_date }}</td>
 						<td><img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success" width="30" height="30" alt="profile img"> Yefri Gonzalez</td>
-						<td class="text-right"><a href="{{ 'events/edit/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg"></i></a> | 
-						<a href="{{ 'events/manage/' | url }}{{ event.id }}"><i class="fas fa-cogs fa-lg"></i></a> | <a href="{{ 'events/delete/' | url }}{{ event.id }}"><i class="fas fa-trash-alt"></i></a> </td>
+						<td class="text-right">
+							<a href="{{ 'events/edit/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg"></i></a> | 
+							<a href="{{ 'events/manage/' | url }}{{ event.id }}"><i class="fas fa-cogs fa-lg"></i></a> | 
+							<a href="{{ 'events/delete/' | url }}{{ event.id }}"><i class="fas fa-trash-alt"></i></a> </td>
 					</tr>
 				{% endfor %}
 			</tbody>

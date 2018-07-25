@@ -35,11 +35,8 @@ class EventsModel
 			':eventDate' => $request['eventDate'],
 			':place' => $request['place']
 		]);
-
-		//$result = $query->fetchAll(\PDO::FETCH_ASSOC);
-
 		
-		return $result;
+		return ['result' => $result, 'id' => $pdo->lastInsertId()];
 	}
 
 	public function saveEvent($request)
@@ -56,7 +53,6 @@ class EventsModel
 			':id' => $request['id']
 		]);
 
-		//$result = $query->fetchAll(\PDO::FETCH_ASSOC);
 
 		
 		return $result;
@@ -85,6 +81,8 @@ class EventsModel
 		]);
 		return $result;
 	}
+
+
 }
 
 ?>

@@ -1,0 +1,44 @@
+{% extends 'layout.twig' %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row my-2">
+		{# Assitance #}
+		<div class="col-12">
+			<div class="card bg-light mt-3">
+				<div class="card-header">
+					<h4 class="card-title">Add | Budget</h4>
+				</div>
+				<a href="{{ 'events/editbudget/' | url }}{{ invoice_id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Back</a>
+				<div class="card-body">
+					<form method="post">
+						<div class="table">
+							<div class="d-none d-md-block">
+							  <div class="row">
+							    <div scope="col" class="col-6">Product</div>
+							    <div scope="col" class="col-3">Price</div>
+							    <div scope="col" class="col-3">Amount</div>
+							  </div>
+							</div>
+							<hr>
+						  <div class="row">
+						    <div class="col-md-6">
+									<select id="companyName" name="company_id" class="form-control mt-2 rounded-0" required>
+					        <option value="">Choose...</option>
+					        {% for product in productsData %}
+					        	<option value="{{ company.company_id }}">{{ company.company_name }}</option>
+							  	{% endfor %}
+					      </select>
+					      <a href="{{ 'companies/addproduct' | url }}" class="btn btn-info mb-2 rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Product</a>
+								</div>
+						    <div class="col-md-3 my-2 col-sm-12"><input type="number" class="form-control" placeholder="Price" required></div>
+						    <div class="col-md-3 my-2 col-sm-12"><input type="number" class="form-control" placeholder="Amount" required></div>
+						  </div>
+						</div>
+						<button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Save</button>
+					</form>		
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

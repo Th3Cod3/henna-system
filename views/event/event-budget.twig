@@ -1,5 +1,6 @@
 {% extends 'layout.twig' %}
 {% block content %}
+{# 	{{ invoiceData|json_encode() }} #}
 <div class="container-fluid">
 	<div class="row my-2">
 		{# Assitance #}
@@ -10,7 +11,32 @@
 				</div>
 				<a href="{{ 'events/addbudget/' | url }}{{ id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Budget</a>
 				<div class="card-body">
-					
+					<div class="card-body">
+						<table class="table">
+						  <thead>
+						    <tr>
+						      <th scope="col">Company</th>
+						      <th scope="col">Total</th>
+						      <th scope="col">Add by</th>
+						      <th scope="col" class="text-right">Options</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  	{% for invoice in invoiceData %}
+								<tr>
+						      <td>{{ invoice.company_id }}</td>
+						      <td></td>
+						      <td></td>
+						      {# need invoice_id #}
+						      <td class="text-right">
+						      	<a href="{{ 'events/editbudget/' | url }}{{ invoice.invoice_id }}"><i class="far fa-edit fa-lg"></i></a> | 
+										<a href="{{ 'events/additem/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-plus-circle fa-lg"></i></a> | 
+										<a href="{{ 'events/deletebudget/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-trash-alt"></i></a></td>
+						    </tr>
+						  	{% endfor %}
+						  </tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

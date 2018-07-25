@@ -13,9 +13,9 @@ $router = new Phroute\Phroute\RouteCollector();
 
 
 $router->controller('/', App\Controllers\IndexController::class);
-$router->controller('/events', App\Controllers\System\EventsController::class);
-$router->controller('/people', App\Controllers\System\EventsController::class);
-$router->controller('/companies', App\Controllers\System\CompaniesController::class);
+$router->controller('events', App\Controllers\System\EventsController::class);
+$router->controller('people', App\Controllers\System\PeopleController::class);
+$router->controller('companies', App\Controllers\System\CompaniesController::class);
 
 $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
 $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $route);
