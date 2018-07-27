@@ -12,7 +12,6 @@ class CompaniesModel
 	public function addCompany($request)
 	{
 		global $pdo;
-		//var_dump($request);
 		$sql = 'INSERT INTO companies (company_name, address, phone, kvk, contact_person, email) VALUES (:companyName, :address, :phone, :kvk, :contactPerson, :email)';
 		$query = $pdo->prepare($sql);
 		$result = $query->execute([
@@ -37,7 +36,7 @@ class CompaniesModel
 		return $query->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
-	public function getItems($id)
+	public function getItems($invoice_id)
 	{
 		global $pdo;
 
@@ -50,7 +49,7 @@ class CompaniesModel
 
 		$query = $pdo->prepare($sql);
 		$result = $query->execute([
-			':invoice_id' => $id
+			':invoice_id' => $invoice_id
 		]);
 
 		return $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -61,9 +60,35 @@ class CompaniesModel
 		
 	}
 
-	public function saveProduct($id)
+	public function saveProduct($request)
 	{
-		# code...
+		global $pdo;
+		var_dump($request);
+		$sql = 'INSERT INTO products (description, name, company_id, code) VALUES (:description, :name, :company_id, :code)';
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':description' => $request['description'],
+			':name' => $request['name'],
+			':company_id' => $request['company_id'],
+			':code' => $request['code']
+		]);
+
+		return $result;
+	}
+
+	public function getProducts($company_id)
+	{
+		global $pdo;
+
+		$sql = 'SELECT 	*	FROM products WHERE company_id = :company_id';
+
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':company_id' => $company_id
+		]);
+
+		return $query->fetchAll(\PDO::FETCH_ASSOC);
+
 	}
 }
 

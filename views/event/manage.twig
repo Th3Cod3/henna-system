@@ -15,23 +15,34 @@
 			<div class="card bg-light mt-3">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-12">
+						<div class="col-md-6 col-sm-12 mb-3">
 							<h3>BUDGET</h3>
-							<a href="{{ 'events/addbudget/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg my-2"></i> Add Budget</a>
-							<a href="{{ 'events/budgets/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Budgets</a>
+							{% if sumBugets %}
+								<a href="{{ 'budgets/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Budgets</a>
+							{% endif %}
 						</div>
-						<div class="col-md-6 col-sm-12">
-							<p class=" display-3 text-md-right text-center">98,00</p>
+						<div class="col-md-6 col-sm-12 mb-3">
+							{% if sumBugets %}
+								<p class=" display-3 text-md-right text-center">98,00{*}</p>
+							{% else %}
+								<a href="{{ 'budgets/add/' | url }}{{ data['0'].id }}" class="btn btn-info btn-block my-2 text-left"><i class="fas fa-plus-circle fa-lg"></i> <span class="float-right">Add Budget</span></a>
+							{% endif %}
 						</div>
-					<hr>
-						<div class="col-md-6 col-sm-12">
+						<hr>
+						{# COST NEED TO PROGRAM #}
+					{# 	<div class="col-md-6 col-sm-12 mb-3">
 							<h3>COST</h3>
-							<a href="{{ 'events/addcost/' | url }}{{ data['0'].id }}" class="btn btn-info"><i class="fas fa-plus-circle fa-lg my-2"></i> Add Cost</a>
-							<a href="{{ 'events/costs/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Costs</a>
+							{% if sumCosts %}
+								<a href="{{ 'costs/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Cost</a>
+							{% endif %}
 						</div>
-						<div class="col-md-6 col-sm-12">
-							<p class=" display-3 text-md-right text-center">98,00</p>
-						</div>
+						<div class="col-md-6 col-sm-12 mb-3">
+							{% if sumcosts %}
+								<p class=" display-3 text-md-right text-center">98,00{*}</p>
+							{% else %}
+								<a href="{{ 'costs/add/' | url }}{{ data['0'].id }}" class="btn btn-info btn-block my-2 text-left"><i class="fas fa-plus-circle fa-lg"></i> <span class="float-right">Add Cost</span></a>
+							{% endif %}
+						</div> #}
 					</div>
 				</div>
 			</div>
@@ -43,9 +54,23 @@
 				<div class="card-header">
 					<h4 class="card-title">Assistance</h4>
 				</div>
-				<a href="{{ 'events/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Person</a>
+				<a href="{{ 'people/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Person</a>
 				<div class="card-body">
-					
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+							<div class="card d-inline-block w-100">
+								<div class="row">
+									
+								</div>
+								<img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success m-2" width="30" height="30" alt="profile img"><span>Yefri Gonzalez</span>
+								<div class="m-2 d-inline-block float-right">
+									<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg mx-1"></i></a> |
+									<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-user fa-lg mx-1"></i></a> | 
+									<a href="{{ 'events/assistance/' | url }}{{ event.id }}"><i class="fas fa-times fa-lg mx-1"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

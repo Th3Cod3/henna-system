@@ -6,7 +6,7 @@
 		<div class="col-12">
 			<div class="card bg-light mt-3">
 				<div class="card-header">
-					<h4 class="card-title">Add | Budget</h4>
+					<h4 class="card-title">{{ action }} | {{ section }}</h4>
 				</div>
 				<div class="card-body">
 					<form method="post">
@@ -17,56 +17,39 @@
 					      <select id="companyName" name="company_id" class="form-control rounded-0" required>
 					        <option value="">Choose...</option>
 					        {% for company in companiesData %}
-					        	<option value="{{ company.company_id }}">{{ company.company_name }}</option>
+					        	<option {% if invoiceData.company_id == company.company_id %}selected{% endif %} value="{{ company.company_id }}">{{ company.company_name }}</option>
 							  	{% endfor %}
 					      </select>
 								
-								<a href="{{ 'companies/add' | url }}" class="btn btn-info rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Company</a>
+								<a href="{{ 'companies/new' | url }}" class="btn btn-info rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Company</a>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label for="eventName">Event</label>
-								<input type="text" class="form-control" id="event_id" value="{{ eventData['0'].name }}" readonly>
-								<input type="hidden" name="event_id" value="{{ eventData['0'].id }}">
+								<input type="text" class="form-control" id="event_id" value="{{ eventData.name }}" readonly>
+								<input type="hidden" name="event_id" value="{{ eventData.id }}">
+								<input type="hidden" name="invoice_id" value="{{ invoiceData.invoice_id }}">
 							</div>
 							<div class="col-md-4 mb-3">
 								<label for="quote">Quote No.</label>
 								<div class="input-group">
-									<input type="text" class="form-control" name="invoice_no" id="quote" placeholder="Quote No.">
+									<input type="text" class="form-control" name="invoice_no" id="quote" value="{{ invoiceData.invoice_no }}" placeholder="Quote No.">
 								</div>
 							</div>
 							<div class="col-md-4 mb-3">
 								<label for="quoteDate">Quote Date</label>
-								<input type="date" class="form-control" name="invoice_date" id="quoteDate" placeholder="Quote Date">
+								<input type="date" class="form-control" name="invoice_date" id="quoteDate" value="{{ invoiceData.invoice_date }}" placeholder="Quote Date">
 							</div>
 							<div class="col-md-4 mb-3">
 								<label for="file">File</label>
 								<div class="input-group">
+									{# here come the file link and options #}
 									<input type="file" name="invoice_file" class="custom-file-input" id="file">
 									<label class="custom-file-label" for="file">Upload File</label>
 								</div>
 							</div>
 						</div>
-						{# Here come the items
-						<hr class="d-none d-md-block">
-						<div></div>
-						<div class="table">
-							<div class="d-none d-md-block">
-							  <div class="row">
-							    <div scope="col" class="col-6">Product</div>
-							    <div scope="col" class="col-3">Price</div>
-							    <div scope="col" class="col-3">Amount</div>
-							  </div>
-							</div>
-							<hr>
-						  <div class="row">
-						    <div class="col-md-6">
-									<input type="text" class="form-control my-2 col-sm-12" placeholder="Product">
-								</div>
-						    <div class="col-md-3 my-2 col-sm-12"><input type="number" class="form-control" placeholder="Price"></div>
-						    <div class="col-md-3 my-2 col-sm-12"><input type="number" class="form-control" placeholder="Amount"></div>
-						  </div>
-						</div> #}
-						<button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Next Step</a>
+						
+						<button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Next Step (Items)</a>
 					</form>		
 				</div>
 			</div>

@@ -1,0 +1,94 @@
+{% extends 'layout.twig' %}
+{% block content %}
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-12">
+				<form method="post" action="#">
+					<div class="card">
+						<div class="card-header text-center">
+							<h3>Add Person</h3>
+							<div class="card-body text-left">
+								<div class="row">
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="firstname"><h5>Firts Name</h5></label>
+									    <input type="text" class="form-control" id="firstname" value="" name="firstname" placeholder="Firts Name" required>
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="lastname"><h5>Last Name</h5></label>
+									    <input type="text" class="form-control" id="lastname" value="" name="lastname" placeholder="Last Name" required>
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="birthplace"><h5>Birthplace</h5></label>
+									    <input type="text" class="form-control" id="birthplace" value="" name="birthplace" placeholder="Birthplace">
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="birthday"><h5>Birthday</h5></label>
+									    <input type="date" class="form-control" id="birthday" value="" name="birthday" placeholder="Birthday">
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="address"><h5>Address</h5></label>
+									    <input type="text" class="form-control" id="address" value="" name="address" placeholder="Address">
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="azv"><h5>AZV no.</h5></label>
+									    <input type="number" class="form-control" id="azv" value="" name="azv" min="0" step="1" placeholder="AZV no." required>
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="phone"><h5>Phone</h5></label>
+									    <input type="number" class="form-control" id="phone" value="" min="0" step="1" name="phone" placeholder="Phone">
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="email"><h5>E-mail</h5></label>
+									    <input type="email" class="form-control" id="email" value="" name="email" placeholder="E-mail">
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+									    <label for="occupation"><h5>Occupation</h5></label>
+									    <input type="text" class="form-control" id="occupation" value="" name="occupation" placeholder="Occupation">
+									  </div>
+									</div>
+
+									<div class="col-lg-6 col-md-12">
+										<label for="picture"><h5>Picture</h5></label>
+										<div class="input-group">
+											{# here come the file link and options #}
+											<input type="file" name="invoice_file" class="custom-file-input" id="file">
+											<label class="custom-file-label" for="picture">Upload Picture</label>
+										</div>
+									</div>
+
+									<input type="submit" value="{{ button }}" class="btn btn-outline-info btn-lg btn-block rounded-0">
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

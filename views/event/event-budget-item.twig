@@ -8,33 +8,60 @@
 				<div class="card-header">
 					<h4 class="card-title">Add | Budget</h4>
 				</div>
-				<a href="{{ 'events/editbudget/' | url }}{{ invoice_id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Back</a>
+				<a href="{{ 'budgets/edit/' | url }}{{ invoice_id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Back</a>
 				<div class="card-body">
 					<form method="post">
 						<div class="table">
-							<div class="d-none d-md-block">
-							  <div class="row">
-							    <div scope="col" class="col-6">Product</div>
-							    <div scope="col" class="col-3">Price</div>
-							    <div scope="col" class="col-3">Amount</div>
-							  </div>
-							</div>
+							{% if productsData %}
+							  <table class="table">
+								  <thead>
+								    <tr>
+								      <th scope="col">Product Name</th>
+								      <th scope="col">Price</th>
+								      <th scope="col">Amount</th>
+								      <th scope="col">Options</th>
+								    </tr>
+								  </thead>
+
+								  <tbody>
+								  	{% for item in itemsData %}
+									    <tr>
+									      <th>{{ item.name }}</th>
+									      <td>{{ item.price }}</td>
+									      <td>{{ item.amount }}</td>
+									      <td>
+									      	<a href="{{ 'companies/delitem/' | url }}{{ item.item_id }}"><i class="fas fa-trash-alt"></i></a>
+									      </td>
+									    </tr>
+								    {% endfor %}
+								  </tbody>
+								</table>
+							{% else %}
+								<div class="d-none d-md-block">
+								  <div class="row">
+								    <div scope="col" class="col-6">Product</div>
+								    <div scope="col" class="col-3">Price</div>
+								    <div scope="col" class="col-3">Amount</div>
+								  </div>
+								</div>
+							{% endif %}
 							<hr>
 						  <div class="row">
 						    <div class="col-md-6">
-									<select id="companyName" name="company_id" class="form-control mt-2 rounded-0" required>
+									<select id="companyName" name="product_id" class="form-control mt-2 rounded-0" required>
 					        <option value="">Choose...</option>
 					        {% for product in productsData %}
 					        	<option value="{{ product.product_id }}">{{ product.name }}</option>
 							  	{% endfor %}
 					      </select>
-					      <a href="{{ 'companies/addproduct/' | url }}{{ company_id }}" class="btn btn-info mb-2 rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Product</a>
+					      <input type="hidden" name="invoice_id" value="{{ budget_id }}">
+					      <a href="{{ 'companies/products/' | url }}{{ company_id }}" class="btn btn-info mb-2 rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Product</a>
 								</div>
-						    <div class="col-md-3 my-2 col-sm-12"><input type="number" class="form-control" placeholder="Price" required></div>
-						    <div class="col-md-3 my-2 col-sm-12"><input type="number" class="form-control" placeholder="Amount" required></div>
+						    <div class="col-md-3 my-2 col-sm-12"><input type="number" min="0" class="form-control" name="price" placeholder="Price" step="0.01" required></div>
+						    <div class="col-md-3 my-2 col-sm-12"><input type="number" name="amount" min="0" class="form-control" placeholder="Amount" required></div>
 						  </div>
 						</div>
-						<button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Save</button>
+						<button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Item</button>
 					</form>		
 				</div>
 			</div>

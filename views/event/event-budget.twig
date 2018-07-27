@@ -9,7 +9,7 @@
 				<div class="card-header">
 					<h4 class="card-title">Budget</h4>
 				</div>
-				<a href="{{ 'events/addbudget/' | url }}{{ id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Budget</a>
+				<a href="{{ 'budgets/add/' | url }}{{ id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Budget</a>
 				<div class="card-body">
 					<div class="card-body">
 						<table class="table">
@@ -29,9 +29,9 @@
 						      <td></td>
 						      {# need invoice_id #}
 						      <td class="text-right">
-						      	<a href="{{ 'events/editbudget/' | url }}{{ invoice.invoice_id }}"><i class="far fa-edit fa-lg"></i></a> | 
-										<a href="{{ 'events/additem/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-plus-circle fa-lg"></i></a> | 
-										<a href="{{ 'events/deletebudget/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-trash-alt"></i></a></td>
+						      	<a href="{{ 'budgets/edit/' | url }}{{ invoice.invoice_id }}"><i class="far fa-edit fa-lg"></i></a> | 
+										<a href="{{ 'budgets/items/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-plus-circle fa-lg"></i></a> | 
+										<a href="{{ 'budgets/delete/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-trash-alt"></i></a></td>
 						    </tr>
 						  	{% endfor %}
 						  </tbody>

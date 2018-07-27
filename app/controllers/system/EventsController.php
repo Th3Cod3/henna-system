@@ -22,7 +22,7 @@ class EventsController extends TwigController
 	{
 		return $this->render('event/new-event.twig', [
 			'button' => 'Create',
-			'action' => 'new'
+			'action' => 'New'
 		]);
 	}
 
@@ -45,13 +45,14 @@ class EventsController extends TwigController
 		]);
 	}
 
-	public function postEdit($event_id)
+	public function postEdit($budget_id)
 	{
-		if($_POST['id'] == $event_id)
+		if($_POST['budget_id'] == $budget_id)
 		{
 			$eventsModel = new EventsModel();
 			$data = $eventsModel->saveEvent($_POST);
-			header("Location:".BASE_URL."events");
+			if($data)
+				header("Location:".BASE_URL."events");
 		}
 	}
 
@@ -71,65 +72,14 @@ class EventsController extends TwigController
 			'data' => $data
 		]);
 	}
-// incompleted
-	public function getBudgets($event_id)
-	{
-
-		$invoicesModel = new InvoicesModel();
-		$invoiceData = $invoicesModel->getQuoteByEvent($event_id);
-
-		foreach ($invoiceData as $key => $invoice) {
-			$itemsData = $invoicesModel->getItems($invoice['invoice_id']);
-			array_push($invoiceData[$key],['items' => [ $itemsData ]]);
-			//var_dump($invoice);
-		}
-
-		return $this->render('event/event-budget.twig', [
-			'id' => $event_id, 
-			'invoiceData' => $invoiceData
-		]);
-	}
-	
-	public function getAddbudget($event_id)
-	{
-		$eventsModel = new EventsModel();
-		$eventData = $eventsModel->getEvent($event_id);
-
-		$companiesModel = new CompaniesModel;
-		$companiesData = $companiesModel->getAllCompanies();
-		return $this->render('event/event-budget-add.twig', [
-			'id' => $event_id, 
-			'companiesData' => $companiesData,
-			'eventData' => $eventData
-		]);
-	}
-
-	public function getAdditem($budget_id)
-	{
-
-		$invoicesModel = new invoicesModel();
-		$invoicesData = $invoicesModel->getQuote($budget_id);
-			//var_dump($invoicesData);
-			$company_id = $invoicesData[0]['company_id'];
-		return $this->render('event/event-budget-item.twig', [
-			'id' => $budget_id, 
-			'company_id' => $company_id
-		]);
-	}
-
-	public function postAddbudget($event_id)
-	{
-		if($_POST['event_id'] == $event_id){
-			$invoicesModel = new InvoicesModel;
-			$create = $invoicesModel->createQuote($_POST);
-
-			if($create['result'])
-				header("Location:".BASE_URL.'/events/additem/'.$create['id']);
-		}
-	}
 
 
 
+
+
+
+
+//cost
 	public function getCost($event_id)
 	{
 		return $this->render('event/event-budget.twig', ['id' => $event_id]);

@@ -12,24 +12,43 @@ class CompaniesController extends TwigController
 {
 	public function getIndex()
 	{
-		return $this->render('layout.twig');
+		$companiesModel = new CompaniesModel();
+		$companiesData = $companiesModel->getAllCompanies();
+
+		return $this->render('company/company.twig', [
+			'companiesData' => $companiesData
+		]);
+
 	}
 	
-	public function getAdd()
+	public function getNew()
 	{
 		return $this->render('company/new-company.twig');
 	}
 
-	public function postAdd()
+	public function postNew()
 	{
 		$companiesModel = new CompaniesModel();
 		$save = $companiesModel->addCompany($_POST);
 		header("Location:".BASE_URL."companies");
 	}
 
-	public function getAddproduct($comapny_id)
+	public function getProducts($company_id)
 	{
-		return $this->render('layout.twig');
+		$companiesModel = new CompaniesModel();
+		$productsData = $companiesModel->getProducts($company_id);
+		return $this->render('company/add-product.twig', [ 
+			'company_id' => $company_id, 
+			'productsData' => $productsData
+		]);
+	}
+
+	public function postProducts($company_id)
+	{
+		$companiesModel = new CompaniesModel();
+		$save = $companiesModel->saveProduct($_POST);
+
+		header("Location:".BASE_URL."companies/products/".$company_id);
 	}
 
 }
