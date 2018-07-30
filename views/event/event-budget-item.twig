@@ -8,12 +8,12 @@
 				<div class="card-header">
 					<h4 class="card-title">Add | Budget</h4>
 				</div>
-				<a href="{{ 'budgets/edit/' | url }}{{ invoice_id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Back</a>
+				<a href="{{ 'budgets/' | url }}{{ event_id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Back</a>
 				<div class="card-body">
-					<form method="post">
+					<form method="post" action="{{ 'budgets/items/' | url }}{{ budget_id }}">
 						<div class="table">
 							{% if productsData %}
-							  <table class="table">
+							  <table class="table table-sm-responsive">
 								  <thead>
 								    <tr>
 								      <th scope="col">Product Name</th>
@@ -27,15 +27,18 @@
 								  	{% for item in itemsData %}
 									    <tr>
 									      <th>{{ item.name }}</th>
-									      <td>{{ item.price }}</td>
+									      <td>{{ item.price|number_format(2, ',', '.') }}</td>
 									      <td>{{ item.amount }}</td>
 									      <td>
-									      	<a href="{{ 'companies/delitem/' | url }}{{ item.item_id }}"><i class="fas fa-trash-alt"></i></a>
+									      	<a href="{{ 'budgets/del_item/' | url }}{{ item.item_id }}"><i class="fas fa-trash-alt"></i></a>
 									      </td>
 									    </tr>
 								    {% endfor %}
 								  </tbody>
 								</table>
+								<div class="col-md-6 offset-md-6 col-12 text-right">
+									<span class="h1">TOTAL: <span class="h3">{{ total |number_format(2, ',', '.')}}</span></span>
+								</div>
 							{% else %}
 								<div class="d-none d-md-block">
 								  <div class="row">

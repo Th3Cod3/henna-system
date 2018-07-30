@@ -26,6 +26,7 @@
 									    <label for="place"><h5>Place</h5></label>
 									    <input type="text" class="form-control" id="place" value="{{ data['0'].place }}" name="place" placeholder="Place" required>
 									  </div>
+									  <input type="hidden" value="{{ event_id }}" name="event_id">
 										<div class="form-group">
 									    <label for="Description"><h5>Description</h5></label>
 									    <textarea placeholder="Write all the important imformation for this event." class="form-control" name="description" id="Description" rows="3">{{ data['0'].description }}</textarea>

@@ -29,12 +29,25 @@ class PeopleModel
 		return ['result' => $result, 'id' => $pdo->lastInsertId()];
 	}
 
-	public function getAllPerson()	
+	public function getAllPersons()	
 	{
 		global $pdo;
 
 		$sql = "SELECT * FROM persons";
 		$query = $pdo->query($sql);
+
+		return $query->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+	public function getPerson($person_id)
+	{
+		global $pdo;
+
+		$sql = "SELECT * FROM persons WHERE person_id = :person_id";
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':person_id' => $person_id 
+		]);
 
 		return $query->fetchAll(\PDO::FETCH_ASSOC);
 	}

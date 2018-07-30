@@ -5,9 +5,13 @@
 		<div class="col-lg-6 col-md-12">
 			<div class="card bg-light mt-3">
 				<div class="card-body">
-					<span class="card-title h2">{{ data['0'].name | upper }} </span><span>{{ data['0'].event_date | date("l, j F Y") }}</span>
+					<span class="card-title h2">{{ eventData.name | upper }} </span><span>{{ eventData.event_date | date("l, j F Y") }}</span>
 					<hr>
-					<span class="h4">Description: </span><p class="card-text">{{ data['0'].description }}</p>
+					<span class="h4">Place: </span><span class="card-text">{{ eventData.place }}</span>
+
+					<br>
+					
+					<span class="h4">Description: </span><p class="card-text">{{ eventData.description }}</p>
 				</div>
 			</div>
 		</div>
@@ -17,30 +21,30 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12 mb-3">
 							<h3>BUDGET</h3>
-							{% if sumBugets %}
-								<a href="{{ 'budgets/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Budgets</a>
+							{% if totalBudget %}
+								<a href="{{ 'budgets/' | url }}{{ eventData.id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Budgets</a>
 							{% endif %}
 						</div>
 						<div class="col-md-6 col-sm-12 mb-3">
-							{% if sumBugets %}
-								<p class=" display-3 text-md-right text-center">98,00{*}</p>
+							{% if totalBudget %}
+								<p class=" display-3 text-md-right text-center">{{ totalBudget|number_format(2, ',', '.') }}</p>
 							{% else %}
-								<a href="{{ 'budgets/add/' | url }}{{ data['0'].id }}" class="btn btn-info btn-block my-2 text-left"><i class="fas fa-plus-circle fa-lg"></i> <span class="float-right">Add Budget</span></a>
+								<a href="{{ 'budgets/add/' | url }}{{ eventData.id }}" class="btn btn-info btn-block my-2 text-left"><i class="fas fa-plus-circle fa-lg"></i> <span class="float-right">Add Budget</span></a>
 							{% endif %}
 						</div>
 						<hr>
-						{# COST NEED TO PROGRAM #}
+						{# COST NEED TO BE PROGRAMMED #}
 					{# 	<div class="col-md-6 col-sm-12 mb-3">
 							<h3>COST</h3>
 							{% if sumCosts %}
-								<a href="{{ 'costs/' | url }}{{ data['0'].id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Cost</a>
+								<a href="{{ 'costs/' | url }}{{ eventData.id }}" class="btn btn-info my-2"><i class="far fa-eye fa-lg"></i> View Cost</a>
 							{% endif %}
 						</div>
 						<div class="col-md-6 col-sm-12 mb-3">
 							{% if sumcosts %}
 								<p class=" display-3 text-md-right text-center">98,00{*}</p>
 							{% else %}
-								<a href="{{ 'costs/add/' | url }}{{ data['0'].id }}" class="btn btn-info btn-block my-2 text-left"><i class="fas fa-plus-circle fa-lg"></i> <span class="float-right">Add Cost</span></a>
+								<a href="{{ 'costs/add/' | url }}{{ eventData.id }}" class="btn btn-info btn-block my-2 text-left"><i class="fas fa-plus-circle fa-lg"></i> <span class="float-right">Add Cost</span></a>
 							{% endif %}
 						</div> #}
 					</div>
@@ -52,24 +56,61 @@
 		<div class="col-12">
 			<div class="card bg-light mt-3">
 				<div class="card-header">
-					<h4 class="card-title">Assistance</h4>
+					<h4 class="card-title">Attendant</h4>
 				</div>
-				<a href="{{ 'people/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Person</a>
 				<div class="card-body">
+					<form method="post">
+						<div class="row">
+
+					    <div class="col-md-6">
+								<select id="people" name="person_id" class="form-control mt-2 rounded-0" required>
+				        <option value="">Choose person</option>
+				        {% for person in persons %}
+				        	{% set attendantReady = 0 %}
+				        	{% for attendant in attendants %}
+				        		{% if attendant.person_id == person.person_id %}
+						        	{% set attendantReady = 1 %}
+				        		{% endif %}
+				        	{% endfor %}
+			        		{% if not attendantReady %}
+				        		<option value="{{ person.person_id }}">
+					        		{{ person.firstname }} {{ person.lastname }}
+					        	</option>
+			        		{% endif %}
+						  	{% endfor %}
+				      </select>
+				      <a href="{{ 'people/new' | url }}" class="btn btn-info mb-2 rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Person</a>
+							</div>
+
+							<div class="col-md-6">
+								<select id="functions" name="register_as" class="form-control mt-2 rounded-0" required>
+				        <option value="">Choose function</option>
+				        {% for function in functions %}
+				        	<option value="{{ function.function_id }}">
+				        		{{ function.name }}
+				        	</option>
+						  	{% endfor %}
+				      </select>
+				      <a href="" class="btn btn-dark mb-2 rounded-0"><i class="fas fa-plus-circle fa-lg"></i> Add Function</a>
+							</div>
+					  </div>
+					  <input type="hidden" name="event_id" value="{{ eventData.id }}">
+					  <button type="submit" class="btn btn-outline-info btn-lg btn-block rounded-0 mb-3">Save Assitance</button>
+					</form>
+
 					<div class="row">
-						<div class="col-lg-4 col-md-6 col-sm-12 mb-2">
-							<div class="card d-inline-block w-100">
-								<div class="row">
-									
-								</div>
-								<img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success m-2" width="30" height="30" alt="profile img"><span>Yefri Gonzalez</span>
-								<div class="m-2 d-inline-block float-right">
-									<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg mx-1"></i></a> |
-									<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-user fa-lg mx-1"></i></a> | 
-									<a href="{{ 'events/assistance/' | url }}{{ event.id }}"><i class="fas fa-times fa-lg mx-1"></i></a>
+						{% for attendant in attendants %}
+							<div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+								<div class="card d-inline-block w-100">
+									<img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success m-2" width="30" height="30" alt="profile img"><span>{{ attendant.firstname }} {{ attendant.lastname }}</span>
+									<div class="m-2 d-inline-block float-right">
+										<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg mx-1"></i></a> |
+										<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-user fa-lg mx-1"></i></a> | 
+										<a href="{{ 'events/assistance/' | url }}{{ event.id }}"><i class="fas fa-times fa-lg mx-1"></i></a>
+									</div>
 								</div>
 							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 			</div>

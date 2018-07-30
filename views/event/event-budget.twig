@@ -1,9 +1,7 @@
 {% extends 'layout.twig' %}
 {% block content %}
-{# 	{{ invoiceData|json_encode() }} #}
 <div class="container-fluid">
 	<div class="row my-2">
-		{# Assitance #}
 		<div class="col-12">
 			<div class="card bg-light mt-3">
 				<div class="card-header">
@@ -16,17 +14,17 @@
 						  <thead>
 						    <tr>
 						      <th scope="col">Company</th>
+						      <th scope="col">Quote No.</th>
 						      <th scope="col">Total</th>
-						      <th scope="col">Add by</th>
 						      <th scope="col" class="text-right">Options</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						  	{% for invoice in invoiceData %}
 								<tr>
-						      <td>{{ invoice.company_id }}</td>
-						      <td></td>
-						      <td></td>
+						      <td>{{ invoice.company_name }}</td>
+						      <td>{{ invoice.invoice_no }}</td>
+						      <td>{{ invoice['0'].total|number_format('2',',','.') }}</td>
 						      {# need invoice_id #}
 						      <td class="text-right">
 						      	<a href="{{ 'budgets/edit/' | url }}{{ invoice.invoice_id }}"><i class="far fa-edit fa-lg"></i></a> | 
@@ -36,6 +34,9 @@
 						  	{% endfor %}
 						  </tbody>
 						</table>
+						<div class="col-md-6 offset-md-6 col-12 text-right">
+									<span class="h1">TOTAL: <span class="h3">{{ totalBudget |number_format(2, ',', '.')}}</span></span>
+								</div>
 					</div>
 				</div>
 			</div>

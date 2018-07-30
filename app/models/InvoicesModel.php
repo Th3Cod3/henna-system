@@ -29,7 +29,7 @@ class InvoicesModel
 	{
 		global $pdo;
 
-		$sql = 'SELECT * FROM invoices WHERE event_id = :id';
+		$sql = 'SELECT c.company_name, i.* FROM invoices as i JOIN companies AS c ON i.company_id = c.company_id  WHERE event_id = :id';
 		$query = $pdo->prepare($sql);
 		$result = $query->execute([
 			':id' => $event_id
@@ -58,7 +58,7 @@ class InvoicesModel
 	{
 		global $pdo;
 
-		$sql = 'SELECT * FROM invoices WHERE invoice_id = :id';
+		$sql = 'SELECT * FROM invoices as i JOIN companies AS c ON i.company_id = c.company_id WHERE invoice_id = :id';
 		$query = $pdo->prepare($sql);
 		$result = $query->execute([
 			':id' => $invoice_id
@@ -100,6 +100,34 @@ class InvoicesModel
 
 		return $result;
 	}
+
+		public function getTotal($invoice_id)
+	{
+		global $pdo;
+
+		$sql = "SELECT SUM(price*amount) as total FROM invoice_items WHERE invoice_id = :invoice_id";
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':invoice_id' => $invoice_id
+		]);
+		
+		return $query->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+	public function getInvoicesTotal($event_id, $invoice_type = 0)
+	{
+		global $pdo;
+
+		$sql = "SELECT sum(amount*price) as total FROM invoices AS i JOIN invoice_items AS ii ON ii.invoice_id = i.invoice_id WHERE i.invoice_type = :invoice_type and i.event_id = :event_id";
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':event_id' => $event_id,
+			'invoice_type' => $invoice_type
+		]);
+		
+		return $query->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
 }
 
  ?>

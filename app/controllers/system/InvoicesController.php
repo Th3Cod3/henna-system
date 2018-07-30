@@ -9,7 +9,7 @@ use App\Models\EventsModel;
 /**
  * 	a
  */
-class BudgetsController extends TwigController
+class InvoicesController extends TwigController
 {
 
 	// incompleted
@@ -18,14 +18,22 @@ class BudgetsController extends TwigController
 		$invoicesModel = new InvoicesModel();
 		$invoiceData = $invoicesModel->getQuoteByEvent($event_id);
 
-		foreach ($invoiceData as $key => $invoice) {
-			$itemsData = $invoicesModel->getItems($invoice['invoice_id']);
-			array_push($invoiceData[$key],['items' => [ $itemsData ]]);
-		}
 
+
+		foreach ($invoiceData as $key => $invoice) {
+			$total = $invoicesModel->getTotal($invoice['invoice_id']);
+				if($total[0]['total'])
+					array_push($invoiceData[$key],$total[0]);
+				else{
+					array_push($invoiceData[$key],['total' => '0']);
+				}
+		}
+		$totalBudget = $invoicesModel->getInvoicesTotal($event_id);
+		var_dump($totalBudget);
 		return $this->render('event/event-budget.twig', [
 			'id' => $event_id, 
-			'invoiceData' => $invoiceData
+			'invoiceData' => $invoiceData, 
+			'totalBudget' => $totalBudget[0]['total']
 		]);
 	}
 
@@ -39,7 +47,7 @@ class BudgetsController extends TwigController
 		return $this->render('event/event-budget-add.twig', [
 			'id' => $event_id, 
 			'companiesData' => $companiesData,
-			'eventData' => $eventData,
+			'eventData' => $eventData[0],
 			'action' => 'Add',
 			'section' => 'Budget'
 
@@ -50,11 +58,16 @@ class BudgetsController extends TwigController
 	{
 		if($_POST['event_id'] == $event_id){
 			$invoicesModel = new InvoicesModel;
-			$create = $invoicesModel->createQuote($_POST);
-
-			if($create['result'])
-				header("Location:".BASE_URL.'/events/additem/'.$create['id']);
+			$created = $invoicesModel->createQuote($_POST);
+			if($created['result'])
+			{
+				header("Location:".BASE_URL.'/budgets/items/'.$created['id']);
+			}
 		}
+		else{
+			return $this->getAdd($event_id);
+		}
+
 	}
 
 	public function getEdit($budget_id)
@@ -83,13 +96,11 @@ class BudgetsController extends TwigController
 	public function postEdit($budget_id)
 	{
 
-		var_dump($_POST);
 		if($_POST['invoice_id'] == $budget_id){
 			$invoicesModel = new InvoicesModel;
-			$create = $invoicesModel->updateQuote($_POST);
+			$update = $invoicesModel->updateQuote($_POST);
 
-			// if($create['result'])
-			// 	header("Location:".BASE_URL.'/events/additem/'.$create['id']);
+			return $this->getItems($budget_id);
 		}
 	}
 
@@ -100,15 +111,19 @@ class BudgetsController extends TwigController
 
 		$invoicesData = $invoicesModel->getQuote($budget_id);
 		$company_id = $invoicesData[0]['company_id'];
+		$event_id = $invoicesData[0]['event_id'];
 
 		$productsData = $companiesModel->getProducts($company_id);
 		$itemsData = $invoicesModel->getItems($budget_id);
 
+		$total = $invoicesModel->getTotal($budget_id);
 		return $this->render('event/event-budget-item.twig', [
 			'budget_id' => $budget_id, 
 			'company_id' => $company_id,
 			'productsData' => $productsData,
-			'itemsData' => $itemsData
+			'itemsData' => $itemsData,
+			'total' => $total[0]['total'], 
+			'event_id' => $event_id
 		]);
 	}
 
@@ -117,10 +132,8 @@ class BudgetsController extends TwigController
 		$invoicesModel = new invoicesModel();
 		$save = $invoicesModel->saveItem($_POST);
 		var_dump($save);
-		if($save)
-			header("Location:".BASE_URL."events/additem/".$budget_id);
+		return $this->getItems($budget_id);
 	}
-
 
 }
 

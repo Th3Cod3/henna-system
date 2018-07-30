@@ -13,7 +13,7 @@ class PeopleController extends TwigController
 		public function getIndex()
 		{
 			$peopleModel = new PeopleModel();
-			$personsData = $peopleModel->getAllPerson();
+			$personsData = $peopleModel->getAllPersons();
 
 			return $this->render('people/people.twig', [
 				'personsData' => $personsData
@@ -34,12 +34,19 @@ class PeopleController extends TwigController
 
 
 			if($save['result'])
-				header("Location:".BASE_URL.'profile/'.$save['id']);
+				header("Location:".BASE_URL.'people/profile/'.$save['id']);
 		}
 
 		public function getProfile($person_id)
 		{
-			return $this->render('people/profile.twig');
+			$peopleModel = new PeopleModel();
+			$person = $peopleModel->getPerson($person_id);
+
+
+
+			return $this->render('people/profile.twig', [
+				'person' => $person[0]
+			]);
 		}
 }
 
