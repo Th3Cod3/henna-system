@@ -8,20 +8,40 @@ namespace App\Models;
 class InvoicesModel
 {
 	
-	public function createQuote($request)
+	public function createQuote($request, $invoice_file)
 	{
 		global $pdo;
 		//need to proces the invoice_file
-		$sql = "INSERT INTO invoices (invoice_no, invoice_date, event_id, company_id, invoice_type, invoice_status ) VALUES (:invoice_no, :invoice_date, :event_id, :company_id, 0, 0)";
+		$sql = "INSERT INTO invoices (invoice_no, invoice_date, event_id, company_id, invoice_type, invoice_status, invoice_file ) VALUES (:invoice_no, :invoice_date, :event_id, :company_id, :invoice_file, 0, 0)";
 		$query = $pdo->prepare($sql);
 		$result = $query->execute([
 			':invoice_no' => $request['invoice_no'], 
 			':invoice_date' => $request['invoice_date'], 
 			':event_id' => $request['event_id'], 
-			':company_id' => $request['company_id']
+			':company_id' => $request['company_id'],
+			'invoice_file' => $invoice_file
 		]);
 
 		return ['result' => $result, 'id' => $pdo->lastInsertId()];
+
+	}
+
+	public function deleteInvoice($invoice_id)
+	{
+		global $pdo;
+
+		$sql = 'DELETE FROM invoices WHERE invoice_id = :invoice_id';
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':invoice_id' => $invoice_id, 
+		]);
+
+		$sql = 'DELETE FROM invoice_items WHERE invoice_id = :invoice_id';
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':invoice_id' => $invoice_id, 
+		]);
+
 
 	}
 

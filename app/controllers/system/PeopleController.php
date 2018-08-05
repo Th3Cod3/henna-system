@@ -31,10 +31,20 @@ class PeopleController extends TwigController
 		{
 			$peopleModel = new PeopleModel();
 			$save = $peopleModel->addPerson($_POST);
-
+			$profilePic = \saveProfilePic($_FILES,$save['id']);
+			if($profilePic)
+				$savePic = $peopleModel->saveProfilePic($profilePic,$save['id']);
 
 			if($save['result'])
-				header("Location:".BASE_URL.'people/profile/'.$save['id']);
+				return $this->getProfile($save['id']);
+		}
+
+		public function getDelete($person_id)
+		{
+			$peopleModel = new PeopleModel();
+			$delete = $peopleModel->deletePerson($person_id);
+
+			return $this->getIndex();
 		}
 
 		public function getProfile($person_id)
@@ -42,12 +52,11 @@ class PeopleController extends TwigController
 			$peopleModel = new PeopleModel();
 			$person = $peopleModel->getPerson($person_id);
 
-
-
 			return $this->render('people/profile.twig', [
 				'person' => $person[0]
 			]);
 		}
+		
 }
 
 ?>

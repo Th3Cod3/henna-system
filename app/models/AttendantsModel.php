@@ -58,8 +58,20 @@ class AttendantsModel
 		]);
 
 		return $query->fetchAll(\PDO::FETCH_ASSOC);
+	}
 
+	public function removeAttendant($register_id)
+	{
+		global $pdo;
 
+		$sql = 'DELETE FROM event_registers WHERE register_id = :register_id';
+
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':register_id' => $register_id
+		]);
+
+		return $result;
 	}
 }
 

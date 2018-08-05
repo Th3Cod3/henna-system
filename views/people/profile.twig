@@ -3,9 +3,12 @@
 <div class="row">
 	<div class="col-12 my-3">
 		
-	<div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-2 offset-lg-5">
-		<img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success" width="100%" alt="profile img">
-	</div>
+	{% if person.profile_pic %}
+		<div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+			<img src="{{ person.profile_pic | url }}" class="rounded-circle rounded img-fluid border border-success" width="10000vw" alt="profile img">
+		</div>
+
+	{% endif %}
 	</div>
 	<div class="col-md-6 col-sm-12 mb-2 col-xl-4">
 		<div class="card text-center">
@@ -13,32 +16,34 @@
 				Contact Info
 			</div>
 			<div class="card-body">
-				<table class="table text-left">
-					<tr>
-						<th scope="row">Full Name</th>
-						<td>{{ person.firstname }} {{ person.lastname }}</td>
-					</tr>
-					<tr>
-						<th scope="row">Birthday</th>
-						<td>{{ person.birthday | date('F j, Y') }}</td>
-					</tr>
-					<tr>
-						<th scope="row">Birthplace</th>
-						<td>{{ person.birthplace }}</td>
-					</tr>
-					<tr>
-						<th scope="row">Address</th>
-						<td>{{ person.address }}</td>
-					</tr>
-					<tr>
-						<th scope="row">Phone</th>
-						<td>{{ person.phone }}</td>
-					</tr>
-					<tr>
-						<th scope="row">E-mail</th>
-						<td>{{ person.occupation }}</td>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table text-left">
+						<tr>
+							<th scope="row">Full Name</th>
+							<td>{{ person.firstname }} {{ person.lastname }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Birthday</th>
+							<td>{{ person.birthday | date('F j, Y') }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Birthplace</th>
+							<td>{{ person.birthplace }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Address</th>
+							<td>{{ person.address }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Phone</th>
+							<td>{{ person.phone }}</td>
+						</tr>
+						<tr>
+							<th scope="row">E-mail</th>
+							<td>{{ person.occupation }}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

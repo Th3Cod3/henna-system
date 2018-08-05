@@ -13,7 +13,9 @@
     <title>Henna THODE</title>
   </head>
   <body>
+    {% if not delnav %}
       {% include 'nav.twig' %}
+    {% endif %}
     <div class="container-fluid">
       {% block content %}{% endblock %}
     </div>

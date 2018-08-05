@@ -51,6 +51,34 @@ class PeopleModel
 
 		return $query->fetchAll(\PDO::FETCH_ASSOC);
 	}
+
+	public function saveProfilePic($profile_pic, $person_id)
+	{
+		global $pdo;
+
+		$sql = 'UPDATE persons SET profile_pic = :profile_pic WHERE person_id = :person_id';
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':person_id' => $person_id,
+			':profile_pic' => $profile_pic
+		]);
+
+		return $result;
+	}
+
+	public function deletePerson($person_id)
+	{
+		global $pdo;
+
+		$sql = 'DELETE FROM persons WHERE person_id = :person_id';
+
+		$query = $pdo->prepare($sql);
+		$result = $query->execute([
+			':person_id' => $person_id
+		]);
+
+		return $result;
+	}
 }
 
  ?>

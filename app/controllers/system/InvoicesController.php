@@ -29,7 +29,6 @@ class InvoicesController extends TwigController
 				}
 		}
 		$totalBudget = $invoicesModel->getInvoicesTotal($event_id);
-		var_dump($totalBudget);
 		return $this->render('event/event-budget.twig', [
 			'id' => $event_id, 
 			'invoiceData' => $invoiceData, 
@@ -54,13 +53,23 @@ class InvoicesController extends TwigController
 		]);
 	}
 
+	public function getDelete($event_id, $budget_id)
+	{
+		$invoicesModel = new InvoicesModel();
+		$delete = $invoicesModel->deleteInvoice($budget_id);
+
+		return $this->getIndex($event_id);
+	}
+
 	public function postAdd($event_id)
 	{
 		if($_POST['event_id'] == $event_id){
+			$fileDir = saveInvoice($_FILES,$event_id);
 			$invoicesModel = new InvoicesModel;
-			$created = $invoicesModel->createQuote($_POST);
+			$created = $invoicesModel->createQuote($_POST, $fileDir);
 			if($created['result'])
 			{
+				echo 'redirect';
 				header("Location:".BASE_URL.'/budgets/items/'.$created['id']);
 			}
 		}
@@ -131,7 +140,6 @@ class InvoicesController extends TwigController
 	{
 		$invoicesModel = new invoicesModel();
 		$save = $invoicesModel->saveItem($_POST);
-		var_dump($save);
 		return $this->getItems($budget_id);
 	}
 

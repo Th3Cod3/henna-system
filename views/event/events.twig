@@ -8,34 +8,36 @@
 	</div>
 	<a href="{{ 'events/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Create New Event</a>
 	<div class="card-body">
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Event Name</th>
-					<th scope="col">Place</th>
-					<th scope="col">Date</th>
-					<th scope="col">Encharge</th>
-					<th scope="col" class="text-right">Options</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for event in activeEvent %}
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
 					<tr>
-						<td>{{ event.id }}</td>
-						<td>{{ event.name }}</td>
-						<td>{{ event.place }}</td>
-						<td>{{ event.event_date }}</td>
-						<td><img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success" width="30" height="30" alt="profile img"> Yefri Gonzalez</td>
-						<td class="text-right">
-							<a href="{{ 'events/edit/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg"></i></a> | 
-							<a href="{{ 'events/manage/' | url }}{{ event.id }}"><i class="fas fa-cogs fa-lg"></i></a> | 
-							<a href="{{ 'events/delete/' | url }}{{ event.id }}"><i class="fas fa-trash-alt"></i></a> 
-						</td>
+						<th scope="col">#</th>
+						<th scope="col">Event Name</th>
+						<th scope="col">Place</th>
+						<th scope="col">Date</th>
+						<th scope="col">Encharge</th>
+						<th scope="col" class="text-right">Options</th>
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for event in activeEvent %}
+						<tr>
+							<td>{{ event.id }}</td>
+							<td>{{ event.name }}</td>
+							<td>{{ event.place }}</td>
+							<td>{{ event.event_date }}</td>
+							<td><img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success" width="30" height="30" alt="profile img"> Yefri Gonzalez</td>
+							<td class="text-right">
+								<a href="{{ 'events/edit/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg"></i></a> | 
+								<a href="{{ 'events/manage/' | url }}{{ event.id }}"><i class="fas fa-cogs fa-lg"></i></a> | 
+								<a href="{{ 'events/delete/' | url }}{{ event.id }}"><i class="fas fa-trash-alt"></i></a> 
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 {% else %}

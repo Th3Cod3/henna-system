@@ -63,7 +63,6 @@ class CompaniesModel
 	public function saveProduct($request)
 	{
 		global $pdo;
-		var_dump($request);
 		$sql = 'INSERT INTO products (description, name, company_id, code) VALUES (:description, :name, :company_id, :code)';
 		$query = $pdo->prepare($sql);
 		$result = $query->execute([

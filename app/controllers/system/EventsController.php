@@ -107,6 +107,15 @@ class EventsController extends TwigController
 		return $this->getManage($event_id);
 	}
 
+	public function getRemove_attendant($event_id, $register_id)
+	{
+		$attendantsModel = new AttendantsModel();
+		$remove = $attendantsModel->removeAttendant($register_id);
+
+		return $this->getManage($event_id);
+
+	}
+
 //cost
 	public function getCost($event_id)
 	{

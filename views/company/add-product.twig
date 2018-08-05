@@ -1,7 +1,6 @@
 {% extends 'layout.twig' %}
 {% block content %}
 <div class="container-fluid">
-	{{ dump(productsData) }}
 	<div class="row my-2">
 		<div class="col-12">
 			<div class="card bg-light mt-3">
@@ -12,29 +11,31 @@
 					<form method="post">
 						{# <div class="table"> #}
 							{% if productsData %}
-							  <table class="table">
-								  <thead>
-								    <tr>
-								      <th scope="col">Product Name</th>
-								      <th scope="col">Description</th>
-								      <th scope="col">Code</th>
-								      <th scope="col">Options</th>
-								    </tr>
-								  </thead>
-
-								  <tbody>
-								  	{% for product in productsData %}
+								<div class="table-responsive">
+								  <table class="table">
+									  <thead>
 									    <tr>
-									      <th>{{ product.name }}</th>
-									      <td>{{ product.description }}</td>
-									      <td>{{ product.name }}</td>
-									      <td>
-									      	<a href="{{ 'companies/delproduct/' | url }}{{ product.product_id }}"><i class="fas fa-trash-alt"></i></a>
-									      </td>
+									      <th scope="col">Product Name</th>
+									      <th scope="col">Description</th>
+									      <th scope="col">Code</th>
+									      <th scope="col">Options</th>
 									    </tr>
-								    {% endfor %}
-								  </tbody>
-								</table>
+									  </thead>
+
+									  <tbody>
+									  	{% for product in productsData %}
+										    <tr>
+										      <th>{{ product.name }}</th>
+										      <td>{{ product.description }}</td>
+										      <td>{{ product.name }}</td>
+										      <td>
+										      	<a href="{{ 'companies/delproduct/' | url }}{{ product.product_id }}"><i class="fas fa-trash-alt"></i></a>
+										      </td>
+										    </tr>
+									    {% endfor %}
+									  </tbody>
+									</table>
+								</div>
 							{% else %}
 								<div class="d-none d-md-block">
 								  <div class="row">

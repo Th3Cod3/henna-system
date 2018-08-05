@@ -4,9 +4,9 @@
 {% if personsData %}
 <div class="card mt-5">
 	<div class="card-header">
-		<h3>All person</h3>
+		<h3>Dashboard</h3>
 	</div>
-	<a href="{{ 'people/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add person</a>
+	<a href="{{ 'user/new' | url }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add User</a>
 	<div class="card-body">
 		<div class="table-responsive">
 			<table class="table">
@@ -21,16 +21,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for person in personsData %}
+					{% for user in usersData %}
 						<tr>
-							<td>{{ person.person_id }}</td>
-							<td>{{ person.firstname }}</td>
-							<td>{{ person.birthday | date('j F Y') }}</td>
-							<td>{{ person.address }}</td>
-							<td>{{ person.email }}</td>
+							<td>{{ user.user_id }}</td>
+							<td>{{ user.firstname }}</td>
+							<td>{{ user.birthday | date('j F Y') }}</td>
+							<td>{{ user.address }}</td>
+							<td>{{ user.email }}</td>
 							<td class="text-right">
-								<a href="{{ 'people/profile/' | url }}{{ person.person_id }}"><i class="far fa-user fa-lg"></i></a> | 
-								<a href="{{ 'people/delete/' | url }}{{ person.person_id }}"><i class="fas fa-trash-alt"></i></a> 
+								<a href="{{ 'people/profile/' | url }}{{ user.user_id }}"><i class="far fa-user fa-lg"></i></a> | 
+								<a href="{{ 'people/delete/' | url }}{{ user.user_id }}"><i class="fas fa-trash-alt"></i></a> 
 							</td>
 						</tr>
 					{% endfor %}
@@ -41,10 +41,10 @@
 </div>
 {% else %}
 	<div class="mt-5 text-center">
-		<a href="{{ 'people/new' | url }}" class="my-5">
+		<a href="{{ 'user/new' | url }}" class="my-5">
 			<i class="fas fa-plus-circle fa-5x"></i>
 			<div class="h4 my-4">
-				Add person
+				Add user
 			</div>
 		</a>
 	</div>

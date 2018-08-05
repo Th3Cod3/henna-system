@@ -22,6 +22,22 @@ class TwigController {
 		$this->twigEng->addFilter(new \Twig_SimpleFilter('url', function($path){
 				return BASE_URL.$path;
 		}));
+		$this->twigEng->addFilter(new \Twig_SimpleFilter('loginUser', function($request){
+			switch ($request) {
+				case 'firstname':
+					return $_SESSION['firstname'];
+					break;
+
+				case 'user':
+					return $_SESSION['user'];
+					break;
+				
+				default:
+					 return null;
+					break;
+			}
+				return BASE_URL.$path;
+		}));
 	}
 
 	public function render($fileName, $data = [])

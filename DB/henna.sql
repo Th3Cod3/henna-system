@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-07-2018 a las 23:32:43
+-- Tiempo de generación: 05-08-2018 a las 16:51:02
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.1
 
@@ -95,10 +95,8 @@ CREATE TABLE `event_registers` (
 --
 
 INSERT INTO `event_registers` (`register_id`, `register_as`, `event_id`, `person_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 7, 1, '2018-07-30 18:18:39', '2018-07-30 18:18:39'),
-(7, 1, 7, 1, '2018-07-30 18:34:00', '2018-07-30 18:34:00'),
-(8, 1, 7, 2, '2018-07-30 18:47:07', '2018-07-30 18:47:07'),
-(9, 2, 7, 3, '2018-07-30 18:47:36', '2018-07-30 18:47:36');
+(15, 1, 7, 2, '2018-07-31 02:22:54', '2018-07-31 02:22:54'),
+(16, 2, 7, 1, '2018-07-31 02:22:59', '2018-07-31 02:22:59');
 
 -- --------------------------------------------------------
 
@@ -134,7 +132,7 @@ CREATE TABLE `invoices` (
   `invoice_date` date NOT NULL,
   `invoice_type` int(11) NOT NULL COMMENT '1 = invoice; 0 = quote;',
   `invoice_status` int(11) NOT NULL COMMENT '0 = open; 1 = paid;',
-  `invoice_file` varchar(50) NOT NULL,
+  `invoice_file` varchar(200) NOT NULL,
   `event_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -146,13 +144,11 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `invoice_no`, `invoice_date`, `invoice_type`, `invoice_status`, `invoice_file`, `event_id`, `company_id`, `created_at`, `updated_at`) VALUES
-(1, '', '0000-00-00', 0, 0, '', 8, 1, '2018-07-25 16:37:43', '2018-07-29 16:57:37'),
+(1, '54254', '2018-07-25', 0, 0, '', 8, 1, '2018-07-25 16:37:43', '2018-07-31 16:25:08'),
 (2, '5423165', '2018-07-22', 0, 0, '', 7, 1, '2018-07-27 14:07:00', '2018-07-27 14:07:00'),
-(3, '5423165', '2018-07-22', 0, 0, '', 7, 1, '2018-07-27 14:07:53', '2018-07-27 14:07:53'),
-(4, '5423165', '2018-07-22', 0, 0, '', 7, 1, '2018-07-27 14:08:08', '2018-07-27 14:08:08'),
-(5, '541321', '2018-07-20', 0, 0, '', 8, 2, '2018-07-29 15:00:16', '2018-07-29 15:00:16'),
 (6, '456564', '2018-07-28', 0, 0, '', 8, 1, '2018-07-29 16:55:41', '2018-07-29 16:55:41'),
-(7, '321654', '2018-07-28', 0, 0, '', 8, 1, '2018-07-29 16:58:13', '2018-07-29 16:58:13');
+(7, '321654', '2018-07-28', 0, 0, '', 8, 1, '2018-07-29 16:58:13', '2018-07-29 16:58:13'),
+(34, '231354', '2018-07-27', 0, 0, '0', 9, 1, '2018-07-31 23:59:52', '2018-07-31 23:59:52');
 
 -- --------------------------------------------------------
 
@@ -187,7 +183,8 @@ INSERT INTO `invoice_items` (`item_id`, `invoice_id`, `product_id`, `price`, `am
 (10, 6, 1, 25.000, 5, '2018-07-29 16:56:42', '2018-07-29 16:56:42'),
 (11, 6, 3, 152.000, 5, '2018-07-29 16:56:57', '2018-07-29 16:56:57'),
 (12, 7, 1, 150.000, 3, '2018-07-29 16:58:37', '2018-07-29 16:58:37'),
-(13, 1, 4, 56.000, 3, '2018-07-29 21:27:36', '2018-07-29 21:27:36');
+(13, 1, 4, 56.000, 3, '2018-07-29 21:27:36', '2018-07-29 21:27:36'),
+(14, 34, 1, 3241.000, 6, '2018-08-01 00:00:00', '2018-08-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -203,9 +200,11 @@ CREATE TABLE `persons` (
   `azv` varchar(20) NOT NULL,
   `firstname` varchar(40) NOT NULL,
   `lastname` varchar(40) NOT NULL,
+  `gender` int(11) NOT NULL COMMENT '1 = man; 0 = female',
   `birthplace` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `occupation` varchar(50) NOT NULL,
+  `profile_pic` varchar(200) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -214,10 +213,11 @@ CREATE TABLE `persons` (
 -- Volcado de datos para la tabla `persons`
 --
 
-INSERT INTO `persons` (`person_id`, `address`, `phone`, `birthday`, `azv`, `firstname`, `lastname`, `birthplace`, `email`, `occupation`, `created_at`, `updated_at`) VALUES
-(1, 'Korvetstraat, 20', '5680101', '1994-12-30', '6546513215', 'Yefri Alexander', 'Gonzalez Gonzalez', 'Oranjestad', 'mamawer01230@gmail.com', 'This Program', '2018-07-27 17:27:08', '2018-07-27 17:27:08'),
-(2, 'Korvetstraat, 20', '5680101', '0000-00-00', '21321654', 'Yefri', 'Gonzalez', 'Oranjestad', 'mamawer01230@gmail.com', '', '2018-07-29 13:07:48', '2018-07-29 13:07:48'),
-(3, 'Korvetstraat, 20', '5680101', '0000-00-00', '21321654', 'Yefri', 'Gonzalez', 'Oranjestad', 'mamawer01230@gmail.com', '', '2018-07-29 13:08:37', '2018-07-29 13:08:37');
+INSERT INTO `persons` (`person_id`, `address`, `phone`, `birthday`, `azv`, `firstname`, `lastname`, `gender`, `birthplace`, `email`, `occupation`, `profile_pic`, `created_at`, `updated_at`) VALUES
+(2, 'Korvetstraat, 20', '5680101', '0000-00-00', '21321654', 'Yefri', 'Gonzalez', 0, 'Oranjestad', 'mamawer01230@gmail.com', '', '', '2018-07-29 13:07:48', '2018-07-29 13:07:48'),
+(3, 'Korvetstraat, 20', '5680101', '0000-00-00', '21321654', 'Yefri', 'Gonzalez', 0, 'Oranjestad', 'mamawer01230@gmail.com', '', '', '2018-07-29 13:08:37', '2018-07-29 13:08:37'),
+(4, 'Korvetstraat, 20', '5680101', '0000-00-00', '354654', 'Yefri', 'Gonzalez', 0, 'Oranjestad', 'mamawer01230@gmail.com', '', '', '2018-08-01 00:20:40', '2018-08-01 00:20:40'),
+(5, '', '', '0000-00-00', '32132156', 'Henna', 'Thode', 0, 'Aruba', '', '', '', '2018-08-05 13:23:43', '2018-08-05 13:23:43');
 
 -- --------------------------------------------------------
 
@@ -241,9 +241,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `company_id`, `code`, `created_at`, `updated_at`) VALUES
 (1, 'tomati', 'e ta un berdura cora', 1, '', '2018-07-26 12:52:29', '2018-07-26 12:52:29'),
-(2, 'TAX', 'e ta un berdura cora', 1, '', '2018-07-26 12:56:22', '2018-07-26 12:56:22'),
-(3, 'TAX', 'e ta un berdura cora', 1, '', '2018-07-26 12:56:27', '2018-07-26 12:56:27'),
-(4, 'Tarjeta', 'ajshgdvkahjsdfvjhgfvsadalkcjhb o ajhsd vjhbv asd dfiasddf adfc', 1, '', '2018-07-29 21:27:14', '2018-07-29 21:27:14');
+(2, 'bacoba', 'e ta un berdura geel', 1, '', '2018-07-26 12:56:22', '2018-07-31 12:38:20'),
+(3, 'lechi', '', 1, '', '2018-07-26 12:56:27', '2018-07-31 12:38:52'),
+(4, 'carchi', 'ajshgdvkahjsdfvjhgfvsadalkcjhb o ajhsd vjhbv asd dfiasddf adfc', 1, '', '2018-07-29 21:27:14', '2018-07-31 12:39:11');
 
 -- --------------------------------------------------------
 
@@ -254,9 +254,22 @@ INSERT INTO `products` (`product_id`, `name`, `description`, `company_id`, `code
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `user` varchar(10) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `permission` int(11) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `permission` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `login_key` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`user_id`, `user`, `password`, `permission`, `person_id`, `login_key`, `created_at`, `updated_at`) VALUES
+(3, 'yef', '$2y$10$ATigFLJ5kJ3ybXwh9c2e7OQjo28HgYIZ1dajXN9KBGxD21R7EHMMu', 1, 3, '', '2018-08-03 20:57:59', '2018-08-03 20:57:59'),
+(6, 'henna', '$2y$10$mubCwoHSD.q6pCnxpR0Cce2r6.bulHXPxRZ78nV.vQewu6DHBPZjO', 2, 5, '', '2018-08-05 13:28:26', '2018-08-05 14:25:01'),
+(7, 'yefri', '$2y$10$3BDDnmDpyQoBhUJkeVslrO2O6UPZ3G0lRnwAzJiI19j4CGJcOpv3e', 2, 2, '', '2018-08-05 14:23:44', '2018-08-05 14:24:54');
 
 --
 -- Índices para tablas volcadas
@@ -340,7 +353,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT de la tabla `event_registers`
 --
 ALTER TABLE `event_registers`
-  MODIFY `register_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `register_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `functions`
@@ -352,19 +365,19 @@ ALTER TABLE `functions`
 -- AUTO_INCREMENT de la tabla `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `persons`
 --
 ALTER TABLE `persons`
-  MODIFY `person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
@@ -376,7 +389,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

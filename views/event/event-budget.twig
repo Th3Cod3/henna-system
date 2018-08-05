@@ -10,30 +10,32 @@
 				<a href="{{ 'budgets/add/' | url }}{{ id }}" class="btn btn-outline-info btn-lg btn-block rounded-0">Add Budget</a>
 				<div class="card-body">
 					<div class="card-body">
-						<table class="table">
-						  <thead>
-						    <tr>
-						      <th scope="col">Company</th>
-						      <th scope="col">Quote No.</th>
-						      <th scope="col">Total</th>
-						      <th scope="col" class="text-right">Options</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  	{% for invoice in invoiceData %}
-								<tr>
-						      <td>{{ invoice.company_name }}</td>
-						      <td>{{ invoice.invoice_no }}</td>
-						      <td>{{ invoice['0'].total|number_format('2',',','.') }}</td>
-						      {# need invoice_id #}
-						      <td class="text-right">
-						      	<a href="{{ 'budgets/edit/' | url }}{{ invoice.invoice_id }}"><i class="far fa-edit fa-lg"></i></a> | 
-										<a href="{{ 'budgets/items/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-plus-circle fa-lg"></i></a> | 
-										<a href="{{ 'budgets/delete/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-trash-alt"></i></a></td>
-						    </tr>
-						  	{% endfor %}
-						  </tbody>
-						</table>
+						<div class="table-responsive">
+							<table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col">Company</th>
+							      <th scope="col">Quote No.</th>
+							      <th scope="col">Total</th>
+							      <th scope="col" class="text-right">Options</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  	{% for invoice in invoiceData %}
+									<tr>
+							      <td>{{ invoice.company_name }}</td>
+							      <td>{{ invoice.invoice_no }}</td>
+							      <td>{{ invoice['0'].total|number_format('2',',','.') }}</td>
+							      {# need invoice_id #}
+							      <td class="text-right">
+							      	<a href="{{ 'budgets/edit/' | url }}{{ invoice.invoice_id }}"><i class="far fa-edit fa-lg"></i></a> | 
+											<a href="{{ 'budgets/items/' | url }}{{ invoice.invoice_id }}"><i class="fas fa-plus-circle fa-lg"></i></a> | 
+											<a href="{{ 'budgets/delete/' | url }}{{ invoice.event_id }}/{{ invoice.invoice_id }}"><i class="fas fa-trash-alt"></i></a></td>
+							    </tr>
+							  	{% endfor %}
+							  </tbody>
+							</table>
+						</div>
 						<div class="col-md-6 offset-md-6 col-12 text-right">
 									<span class="h1">TOTAL: <span class="h3">{{ totalBudget |number_format(2, ',', '.')}}</span></span>
 								</div>

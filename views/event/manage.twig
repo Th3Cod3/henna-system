@@ -59,7 +59,7 @@
 					<h4 class="card-title">Attendant</h4>
 				</div>
 				<div class="card-body">
-					<form method="post">
+					<form method="post" action="{{ 'events/manage/' | url }}{{ eventData.id }}">
 						<div class="row">
 
 					    <div class="col-md-6">
@@ -102,11 +102,20 @@
 						{% for attendant in attendants %}
 							<div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 								<div class="card d-inline-block w-100">
-									<img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success m-2" width="30" height="30" alt="profile img"><span>{{ attendant.firstname }} {{ attendant.lastname }}</span>
-									<div class="m-2 d-inline-block float-right">
-										<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-edit fa-lg mx-1"></i></a> |
-										<a href="{{ 'people/profile/' | url }}{{ event.id }}"><i class="far fa-user fa-lg mx-1"></i></a> | 
-										<a href="{{ 'events/assistance/' | url }}{{ event.id }}"><i class="fas fa-times fa-lg mx-1"></i></a>
+									<div class="row">
+										<div class="col-2 h-100 align-middle">
+											<img src="http://www.piachievers.com/img/users-male-2.png" class="rounded-circle border border-success m-2" width="30px" height="30px" alt="profile img">
+										</div>
+										<div class="col-10">
+											<span class="font-weight-bold">{{ attendant.firstname }} {{ attendant.lastname }}</span> <span class="font-italic text-right">({{ attendant.name }})</span>
+										</div>
+										<div class="col-12">
+											<div class="m-2 d-block text-right">
+												<a href="{{ 'people/profile/' | url }}{{ attendant.person_id }}"><i class="far fa-edit fa-lg mx-1"></i></a> |
+												<a href="{{ 'people/profile/' | url }}{{ attendant.person_id }}"><i class="far fa-user fa-lg mx-1"></i></a> | 
+												<a href="{{ 'events/remove_attendant/' | url }}{{ attendant.event_id }}/{{ attendant.register_id }}"><i class="fas fa-times fa-lg mx-1"></i></a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
